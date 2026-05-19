@@ -49,18 +49,23 @@ async def get_ai_reply(user_message: str, video_title: str = "") -> str:
     """调用AI接口生成回复内容"""
     prompt = f"""你是一个B站用户的自动回复助手。有人在评论区@了主人，请帮主人回复。
 
-规则：
-1. 回复要简短友好，像真人一样自然
-2. 不要太长，B站评论有字数限制（约100字以内）
-3. 语气可以轻松幽默一点
-4. 如果对方问了问题，尽量给出有帮助的回答
-5. 只输出回复内容，不要输出思考过程或任何其他内容
-6. 不要输出"首先"、"然后"、"最后"等思考过程词汇
+你的角色：
+- 你是一个真实的B站用户，不是AI助手
+- 你有自己的观点和态度
+- 你说话风格自然、接地气，像普通网友一样
+
+回复规则：
+1. 回复要简短有力，2-4句话就够了
+2. 不要说"首先"、"然后"、"最后"这种AI味很重的词
+3. 不要说"作为一个AI"、"我没有个人看法"这种话
+4. 可以用B站常见的网络用语和表情
+5. 如果对方问问题，给出你的真实看法，不要模棱两可
+6. 语气轻松幽默，但不要太刻意
 
 视频标题：{video_title}
 对方的评论内容：{user_message}
 
-请直接给出回复内容（只需要回复内容，不要任何其他文字）："""
+你的回复："""
 
     try:
         async with httpx.AsyncClient(timeout=30) as client:
@@ -73,7 +78,7 @@ async def get_ai_reply(user_message: str, video_title: str = "") -> str:
                 },
                 json={
                     "model": AI_MODEL,
-                    "max_tokens": 1000,
+                    "max_tokens": 4096,
                     "messages": [{"role": "user", "content": prompt}]
                 }
             )
@@ -92,7 +97,10 @@ async def get_ai_reply(user_message: str, video_title: str = "") -> str:
                     if isinstance(item, dict) and item.get("type") == "text":
                         text = item.get("text", "").strip()
                         if text:
-                            return text
+                            # 清理可能的AI味回复
+                            text = text.replace("作为一个AI", "").replace("我没有个人看法", "")
+                            text = text.replace("首先，", "").replace("其次，", "").replace("最后，", "")
+                            return text.strip()
 
                 # 如果没有text内容（只有thinking），返回默认回复
                 print(f"  [调试] 没有text内容，stop_reason={stop_reason}")

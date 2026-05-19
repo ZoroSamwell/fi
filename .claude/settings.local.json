@@ -2,7 +2,28 @@
   "permissions": {
     "allow": [
       "Bash(git config *)",
-      "Bash(git init *)"
+      "Bash(git init *)",
+      "Bash(python *)",
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(gh search *)",
+      "Bash(curl -s \"https://api.github.com/search/repositories?q=bilibili+bot+auto+reply&sort=stars&order=desc&per_page=10\")",
+      "Bash(curl -s \"https://api.github.com/search/repositories?q=bilibili+reply+bot+python&sort=stars&order=desc&per_page=10\")",
+      "Bash(curl -s \"https://api.github.com/search/repositories?q=bilibili-api-python&sort=stars&order=desc&per_page=10\")",
+      "Bash(curl -s \"https://api.github.com/search/repositories?q=bilibili+bot&sort=stars&order=desc&per_page=5\" -o /tmp/github_result.json)",
+      "Read(//tmp/**)",
+      "Bash(curl -s \"https://api.github.com/repos/JoyinJoester/Monica/readme\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/JoyinJoester/Monica/main/README.md\")",
+      "Bash(curl -s \"https://api.github.com/repos/JoyinJoester/Monica/contents\")",
+      "Bash(curl -s \"https://api.github.com/repos/JoyinJoester/Monica/contents/Monica%20for%20Android/app/src/main/java/takagi/ru/monica/security\")",
+      "Bash(curl -s \"https://raw.githubusercontent.com/JoyinJoester/Monica/main/Monica%20for%20Android/app/src/main/java/takagi/ru/monica/security/SecurityManager.kt\")",
+      "Bash(curl -s \"https://api.github.com/repos/JoyinJoester/Monica/releases/latest\")",
+      "Bash(curl -s \"https://api.github.com/repos/JoyinJoester/Monica/contents/Monica%20for%20Android/app/src/main/java/takagi/ru/monica/security/lock\")",
+      "Bash(curl -s \"https://api.github.com/repos/JoyinJoester/Monica/contents/Monica%20for%20Android/app/src/main/java/takagi/ru/monica/bitwarden\")",
+      "WebFetch(domain:nemo2011.github.io)",
+      "Bash(pip install *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)"
     ]
   }
 }
